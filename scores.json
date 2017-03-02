@@ -24580,8 +24580,8 @@
    "FIELD8": 158,
    "FIELD9": 141,
    "FIELD10": 6,
-   "FIELD11": 37,
-   "FIELD12": ""
+   "FIELD11": "",
+   "FIELD12": 37
  },
  {
    "FIELD1": "BMOR",
@@ -119290,8 +119290,8 @@
    "FIELD8": 139,
    "FIELD9": 114,
    "FIELD10": 111,
-   "FIELD11": 124,
-   "FIELD12": ""
+   "FIELD11": "",
+   "FIELD12": 124
  },
  {
    "FIELD1": "BMOR",
