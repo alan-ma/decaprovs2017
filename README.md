@@ -8,4 +8,4 @@ Created using HTML, CSS, Bootstrap, JavaScript, and jQuery.
 The algorithms can probably be faster, but this was a one-day project. Some searches will be faster than others.
 <br>
 <br>
-See the final version <a href="alan-ma.github.io/decaprovs2017" target="_blank">here</a>.
+See the final version <a href="https://alan-ma.github.io/decaprovs2017/" target="_blank">here</a>.
