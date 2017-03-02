@@ -189,6 +189,7 @@ function search(series, id, chapter, key, teams) {
 
 function main() {
 	$('#specs').submit(function(event) {
+		$('#intro').css('display', 'none');
 		$('#loading').css('display', 'block');
 		$('#results').css('opacity', 0);
 		setTimeout(function() {

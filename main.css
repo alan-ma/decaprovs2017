@@ -9,12 +9,22 @@
 	display: none;
 	margin-top: 10px;
 }
+#intro {
+	margin-top: 10px;
+}
 #headings {
 	font-weight: bold;
 	border-bottom: 2px solid orange;
 }
 .gray {
 	background-color: #DDD;
+}
+#submit {
+	border: 3px solid #AAA;
+	background-color: transparent;
+}
+#submit:hover {
+	border: 3px solid orange;
 }
 #loading {
 	height: 50px;
