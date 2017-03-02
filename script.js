@@ -1,6 +1,8 @@
 var entries = [];
 var search_results = [];
-var universal_sort_key = ''
+var universal_sort_key = '';
+var num_results = 0;
+var results_id = 'results';
 
 function loadData() {
 	$.getJSON('scores.json', function(data) {
@@ -61,9 +63,9 @@ function display_results() {
 		$.each(search_results, function(index, value) {
 			var id = counter.toString() + '-' + value.id;
 			if (counter % 2 == 0) {
-				$('#results').append('<div id="' + id + '" class="row"></div>');
+				$('#'+results_id).append('<div id="' + id + '" class="row"></div>');
 			} else {
-				$('#results').append('<div id="' + id + '" class="row gray"></div>');
+				$('#'+results_id).append('<div id="' + id + '" class="row gray"></div>');
 			}
 			
 			$('#' + id).append('<div class="col col-xs-1">' + value.series + '</div><div class="col col-xs-1">' + value.id + '</div><div class="col col-xs-1">' + value.chapter + '</div><div class="col col-xs-1">' + value.exam + '</div><div class="col col-xs-1">' + value.oral_one + '</div><div class="col col-xs-1">' + value.oral_two + '</div><div class="col col-xs-1">' + value.penalty + '</div><div class="col col-xs-1">' + value.overall + '</div><div class="col col-xs-1">' + value.test_rank + '</div><div class="col col-xs-1">' + value.oral_one_rank + '</div><div class="col col-xs-1">' + value.oral_two_rank + '</div><div class="col col-xs-1">' + value.overall_rank + '</div>')
@@ -189,14 +191,15 @@ function search(series, id, chapter, key, teams) {
 
 function main() {
 	$('#specs').submit(function(event) {
+		$('#'+results_id).css('opacity', 0);
+		num_results += 1;
+		results_id = 'results' + num_results.toString();
 		$('#intro').css('display', 'none');
 		$('#loading').css('display', 'block');
-		$('#results').css('opacity', 0);
 		setTimeout(function() {
-			$('#results').remove();
 			setTimeout(function() {
-				$('#results_container').append('<div class="row" id="results"></div>');
-					setTimeout(function() {
+				$('#intro').after('<div id="'+results_id+'" class="row"></div>');
+				setTimeout(function() {
 					var search_series = $('#specs #series').val();
 					var search_id = $('#specs #id').val();
 					var search_chapter = $('#specs #chapter').val();
@@ -204,7 +207,6 @@ function main() {
 					var search_teams = $('#specs #teams_only').val();
 					search(search_series, search_id, search_chapter, search_key, search_teams);
 					$('#loading').css('display', 'none');
-					$('#results').css('opacity', 1);
 				}, 100);
 			}, 100);
 		}, 100);				
