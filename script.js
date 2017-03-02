@@ -146,12 +146,12 @@ function search(series, id, chapter, key, teams) {
 				break;
 			case 'oral_one':
 				var entryA = a.oral_one;
-				var entryB = b.overall_rank;
+				var entryB = b.oral_one;
 				backwards = -1;
 				break;
 			case 'oral_two':
 				var entryA = a.oral_two;
-				var entryB = b.overall_rank;
+				var entryB = b.oral_two;
 				backwards = -1;
 				break;
 			case 'penalty':
