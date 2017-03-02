@@ -22,6 +22,7 @@
 #submit {
 	border: 3px solid #AAA;
 	background-color: transparent;
+	border-radius: 5px;
 }
 #submit:hover {
 	border: 3px solid orange;
