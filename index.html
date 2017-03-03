@@ -16,42 +16,55 @@
 	
 	<form id="specs">
 		<h2>Specification</h2>
-		<div class="col col-md-3">
-			<label for="series">Series (leave blank to include all):</label>
-			<br>
-			<input type="text" id="series" placeholder="e.g. BLTDM">
+		<h4>(leave areas blank to include all)</h4>
+		<div class="col col-md-9">
+			<div class="col col-md-3">
+				<label for="series">Series:</label>
+				<br>
+				<input type="text" id="series" placeholder="e.g. BLTDM">
+			</div>
+			<div class="col col-md-3">
+				<label for="id">ID:</label>
+				<br>
+				<input type="text" id="id" placeholder="e.g. 1786">
+			</div>
+			<div class="col col-md-3">
+				<label for="chapter">Chapter:</label>
+				<br>
+				<input type="text" id="chapter" placeholder="e.g. The Woodlands School">
+			</div>
+			<div class="col col-md-3">
+				<label for="judge">Judge:</label>
+				<br>
+				<input type="text" id="judge" placeholder="e.g. A">
+			</div>
 		</div>
 		<div class="col col-md-3">
-			<label for="id">ID (leave blank to include all):</label>
-			<br>
-			<input type="text" id="id" placeholder="1786">
+			<div class="col col-md-6">
+				<label for="include">Include</label>
+				<select id="include">
+					<option value="all">All</option>
+					<option value="teams">Teams Only</option>
+					<option value="individuals">Individuals Only</option>
+				</select>
+			</div>
+			<div class="col col-md-6">
+				<label for="key">Sort By:</label>
+				<br>
+				<select id="key">
+					<option value="overall_rank">Overall Rank</option>
+					<option value="test_rank">Test Rank</option>
+					<option value="oral_one_rank">Oral 1 Rank</option>
+					<option value="oral_two_rank">Oral 2 Rank</option>
+					<option value="exam">Exam Score</option>
+					<option value="oral_one">Oral 1 Score</option>
+					<option value="oral_two">Oral 2 Score</option>
+					<option value="penalty">Penalty</option>
+					<option value="judge">Judge</option>
+				</select>
+			</div>
 		</div>
-		<div class="col col-md-3">
-			<label for="chapter">Chapter (leave blank to include all):</label>
-			<br>
-			<input type="text" id="chapter" placeholder="The Woodlands School">
-		</div>
-		<div class="col col-md-2">
-			<label for="key">Sort By:</label>
-			<br>
-			<select id="key">
-				<option value="overall_rank">Overall Rank</option>
-				<option value="test_rank">Test Rank</option>
-				<option value="oral_one_rank">Oral 1 Rank</option>
-				<option value="oral_two_rank">Oral 2 Rank</option>
-				<option value="exam">Exam Score</option>
-				<option value="oral_one">Oral 1 Score</option>
-				<option value="oral_two">Oral 2 Score</option>
-				<option value="penalty">Penalty</option>
-			</select>
-		</div>
-		<div class="col col-md-1">
-			<label for="teams_only">Teams Only?</label>
-			<select id="teams_only">
-				<option value="no">No</option>
-				<option value="yes">Yes</option>
-			</select>
-		</div>
+		
 		<div class="col col-xs-12">
 			<input id="submit" type="submit" value="Search">
 		</div>
@@ -62,10 +75,13 @@
 			<div class="col col-xs-1">Series Code</div>
 			<div class="col col-xs-1">ID</div>
 			<div class="col col-xs-1">Chapter</div>
+			<div class="col col-xs-1">
+				<div class="col col-xs-6 tilt">Judge*</div>
+				<div class="col col-xs-6 tilt">Penalty</div>
+			</div>
 			<div class="col col-xs-1">Exam</div>
-			<div class="col col-xs-1">Oral 1 Presentation</div>
-			<div class="col col-xs-1">Oral 2 Presentation</div>
-			<div class="col col-xs-1">Penalty</div>
+			<div class="col col-xs-1">Oral 1</div>
+			<div class="col col-xs-1">Oral 2</div>
 			<div class="col col-xs-1">Overall Score</div>
 			<div class="col col-xs-1">Test Rank</div>
 			<div class="col col-xs-1">Oral 1 Rank</div>
@@ -76,7 +92,13 @@
 		<div id="intro">
 			Click 'Search' to begin. Try adding search parameters as well!
 			<br>
-			Note: 'Teams Only' serves to filter out individual scores in team events (i.e. it doesn't filter out individual events like PFL).
+			Leave specification areas blank to include all of them. For example, leaving 'Chapter' blank will include all results from all chapters.
+			<br>
+			Queries need to be exact. For example, "Woodlands" will not return any results.
+			<br>
+			Note: 'Teams Only' and 'Individuals Only' serve to filter out individual scores in team events (i.e. they doesn't filter out individual events like PFL).
+			<br>
+			*This is not necessarily the judge they went to (due to schedule rearrangements).
 		</div>
 		<div id="no_result">
 			No results. Try searching with different terms.

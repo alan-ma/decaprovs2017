@@ -5,8 +5,10 @@ var num_results = 0;
 var results_id = 'results';
 
 function loadData() {
+	var timetable_counter = 0;
 	$.getJSON('scores.json', function(data) {
-		$.each(data, function(index, value) {
+		$.getJSON('timetable.json', function(timetable) {
+			$.each(data, function(index, value) {
 			var entry = {};
 			$.each(value, function(key, val) {
 				switch(key) {
@@ -48,11 +50,22 @@ function loadData() {
 						break;
 					default:
 						console.log('field not found.');
+					}
+					entry.index = index;
+				});
+				if (timetable[timetable_counter].FIELD1 == "LDA") {
+					timetable_counter += 1;
 				}
-				entry.index = index;
+				if (value.FIELD1 + value.FIELD2.toString() == timetable[timetable_counter].FIELD1 + timetable[timetable_counter].FIELD2.toString()) {
+					entry.judge = timetable[timetable_counter].FIELD3;
+					timetable_counter += 1;
+				} else {
+					entry.judge = "";
+				}
+				entries.push(entry);
 			});
-			entries.push(entry);
 		});
+		
 	});
 }
 
@@ -68,7 +81,7 @@ function display_results() {
 				$('#'+results_id).append('<div id="' + id + '" class="row gray"></div>');
 			}
 			
-			$('#' + id).append('<div class="col col-xs-1">' + value.series + '</div><div class="col col-xs-1">' + value.id + '</div><div class="col col-xs-1">' + value.chapter + '</div><div class="col col-xs-1">' + value.exam + '</div><div class="col col-xs-1">' + value.oral_one + '</div><div class="col col-xs-1">' + value.oral_two + '</div><div class="col col-xs-1">' + value.penalty + '</div><div class="col col-xs-1">' + value.overall + '</div><div class="col col-xs-1">' + value.test_rank + '</div><div class="col col-xs-1">' + value.oral_one_rank + '</div><div class="col col-xs-1">' + value.oral_two_rank + '</div><div class="col col-xs-1">' + value.overall_rank + '</div>')
+			$('#' + id).append('<div class="col col-xs-1">' + value.series + '</div><div class="col col-xs-1">' + value.id + '</div><div class="col col-xs-1">' + value.chapter + '</div><div class="col col-xs-1"><div class="col col-xs-6">' + value.judge + '</div><div class="col col-xs-6">' + value.penalty + '</div></div><div class="col col-xs-1">' + value.exam + '</div><div class="col col-xs-1">' + value.oral_one + '</div><div class="col col-xs-1">' + value.oral_two + '</div><div class="col col-xs-1">' + value.overall + '</div><div class="col col-xs-1">' + value.test_rank + '</div><div class="col col-xs-1">' + value.oral_one_rank + '</div><div class="col col-xs-1">' + value.oral_two_rank + '</div><div class="col col-xs-1">' + value.overall_rank + '</div>')
 			counter += 1;
 		});
 	} else {
@@ -99,12 +112,21 @@ function filter(data, key, filter_by) {
 						filtered.push(value);
 					}
 					break;
-				case 'teams_only':
-					if (key == 'yes') {
+				case 'include':
+					if (key == 'teams') {
 						if (value.overall_rank != '') {
 							filtered.push(value);
 						}
+					} else if (key == 'individuals') {
+						if (value.overall_rank == '') {
+							filtered.push(value);
+						}
 					} else {
+						filtered.push(value);
+					}
+					break;
+				case 'judge':
+					if (value.judge == key.toUpperCase()) {
 						filtered.push(value);
 					}
 					break;
@@ -114,14 +136,15 @@ function filter(data, key, filter_by) {
 	return filtered;
 }
 
-function search(series, id, chapter, key, teams) {
+function search(series, id, chapter, judge, include, key) {
 	search_results = [];
 	universal_sort_key = key;
 	console.log('searching...');
 	search_results = filter(entries, series, 'series');
 	search_results = filter(search_results, chapter, 'chapter');
 	search_results = filter(search_results, id, 'id');
-	search_results = filter(search_results, teams, 'teams_only');
+	search_results = filter(search_results, include, 'include');
+	search_results = filter(search_results, judge, 'judge');
 	search_results.sort(function(a,b) {
 		var backwards = 1;
 		switch(universal_sort_key) {
@@ -160,6 +183,10 @@ function search(series, id, chapter, key, teams) {
 				var entryA = a.penalty;
 				var entryB = b.penalty;
 				backwards = -1;
+				break;
+			case 'judge':
+				var entryA = a.judge;
+				var entryB = b.judge;
 				break;
 		}
 		if (entryA == "") {
@@ -203,9 +230,10 @@ function main() {
 					var search_series = $('#specs #series').val();
 					var search_id = $('#specs #id').val();
 					var search_chapter = $('#specs #chapter').val();
+					var search_judge = $('#specs #judge').val();
+					var search_include = $('#specs #include').val();
 					var search_key = $('#specs #key').val();
-					var search_teams = $('#specs #teams_only').val();
-					search(search_series, search_id, search_chapter, search_key, search_teams);
+					search(search_series, search_id, search_chapter, search_judge, search_include, search_key);
 					$('#loading').css('display', 'none');
 				}, 100);
 			}, 100);

@@ -5,6 +5,9 @@
 	width: 100%;
 	margin: 20px;
 }
+#results_container {
+	min-width: 1080px;
+}
 #no_result {
 	display: none;
 	margin-top: 10px;
@@ -41,5 +44,8 @@
 	from {transform: rotate(0deg);}
 	to {transform: rotate(360deg);}
 }
-
+.tilt {
+	transform: rotate(60deg);
+	transform-origin: top right;
+}
 
